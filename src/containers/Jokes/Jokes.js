@@ -10,14 +10,6 @@ class Jokes extends Component {
     };
 
 
-    // componentDidMount() {
-    //     fetch('https://api.chucknorris.io/jokes/random')
-    //         .then(response => response.json())
-    //         .then(data => this.setState({jokes: data}));
-    //     console.log(this.state)
-    //
-    // }
-
     componentDidMount() {
         fetch('https://api.chucknorris.io/jokes/random').then(response => {
             if (response.ok) {
@@ -25,12 +17,10 @@ class Jokes extends Component {
             }
             throw new Error('Something went wrong with network request');
         }).then(joke => {
-            this.setState({jokes: [{id: joke.id, text: joke.value, picture: joke.icon_url}]})
-            console.log(joke);
+            this.setState({jokes: [{id: joke.id, text: joke.value, picture: joke.icon_url}]});
         }).catch(error => {
             console.log(error);
-        })
-        console.log(this.state)
+        });
     }
 
 
@@ -47,7 +37,7 @@ class Jokes extends Component {
                     />
 
                     ))}
-                    {console.log(this.state)}
+
                 </section>
 
             </Fragment>
