@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import './Jokes.css';
-import Joke from '../../components/Joke/Joke'
+import Joke from '../../components/Joke/Joke';
+import Button from '../../components/Button/Button'
 
 
 class Jokes extends Component {
@@ -11,38 +12,76 @@ class Jokes extends Component {
 
 
     componentDidMount() {
-        fetch('https://api.chucknorris.io/jokes/random').then(response => {
+        const URL = 'https://api.chucknorris.io/jokes/random';
+
+        const p1 = fetch(URL).then(response => {
             if (response.ok) {
                 return response.json();
             }
             throw new Error('Something went wrong with network request');
-        }).then(joke => {
-            this.setState({jokes: [{id: joke.id, text: joke.value, picture: joke.icon_url}]});
+        });
+        const p2 = fetch(URL).then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Something went wrong with network request');
+        });
+        const p3 = fetch(URL).then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Something went wrong with network request');
+        });
+        const p4 = fetch(URL).then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Something went wrong with network request');
+        });
+        const p5 = fetch(URL).then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Something went wrong with network request');
+        });
+
+        Promise.all([p1, p2, p3, p4, p5]).then(joke => {
+            this.setState({jokes: joke})
         }).catch(error => {
             console.log(error);
         });
     }
 
 
-    render() {
 
-        return (
-            <Fragment>
-                <section className="Posts">
-                    {this.state.jokes.map(joke => (
+
+clickedButton = () => {
+    this.componentDidMount()
+}
+
+render() {
+
+    return (
+        <Fragment>
+            <section className="Jokes">
+                {this.state.jokes.map(joke => (
                     <Joke
                         key={joke.id}
-                        picture={joke.picture}
-                        text={joke.text}
+                        picture={joke.icon_url}
+                        text={joke.value}
                     />
 
-                    ))}
+                ))}
+                {console.log(this.state.jokes)}
+                <Button
+                    clicked={this.clickedButton}
+                />
 
-                </section>
+            </section>
 
-            </Fragment>
-        )
-    }
+        </Fragment>
+    )
+}
 }
 
 export default Jokes;
